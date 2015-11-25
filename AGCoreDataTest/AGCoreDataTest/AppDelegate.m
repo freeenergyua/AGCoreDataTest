@@ -7,6 +7,29 @@
 //
 
 #import "AppDelegate.h"
+#import "Car.h"
+#import "Courses.h"
+#import "University.h"
+#import "Student.h"
+#import "AGObject.h"
+#import <CoreData/CoreData.h>
+
+static NSString* firstNames[] = {
+    @"Tran", @"Lenore", @"Bud", @"Fredda", @"Katrice",
+    @"Clyde", @"Hildegard", @"Vernell", @"Nellie", @"Rupert",
+    @"Billie", @"Tamica", @"Crystle", @"Kandi", @"Caridad",
+    @"Vanetta", @"Taylor", @"Pinkie", @"Ben", @"Rosanna",
+    @"Eufemia", @"Britteny", @"Ramon", @"Jacque", @"Telma",
+    @"Colton", @"Monte", @"Pam", @"Tracy", @"Tresa",
+    @"Willard", @"Mireille", @"Roma", @"Elise", @"Trang",
+    @"Ty", @"Pierre", @"Floyd", @"Savanna", @"Arvilla",
+    @"Whitney", @"Denver", @"Norbert", @"Meghan", @"Tandra",
+    @"Jenise", @"Brent", @"Elenor", @"Sha", @"Jessie"
+};
+
+static NSString* carModelNames[] = {
+    @"ZAZ", @"Toyota", @"BMW", @"Lada", @"Volga"
+};
 
 @interface AppDelegate ()
 
@@ -14,29 +37,149 @@
 
 @implementation AppDelegate
 
+- (Student*) addRandomStudent {
+    
+    Student* student =
+    [NSEntityDescription insertNewObjectForEntityForName:@"Student"
+                                  inManagedObjectContext:self.managedObjectContext];
+    
+    student.score = @((float)arc4random_uniform(201) / 200.f + 2.f);
+    student.name = firstNames[arc4random_uniform(50)];
+    student.age = @((float)arc4random_uniform(5)/5.f + 18.f);
+    
+    return student;
+}
+
+- (University*) addUniversity {
+    
+    University* university =
+    [NSEntityDescription insertNewObjectForEntityForName:@"University"
+                                  inManagedObjectContext:self.managedObjectContext];
+    university.name = @"KNTEU";
+    
+    return university;
+}
+
+- (NSArray*) allObjects {
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"AGObject"
+                inManagedObjectContext:self.managedObjectContext];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.managedObjectContext executeFetchRequest:request error:&requestError];
+    if (requestError) {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+    
+    return resultArray;
+}
+- (Car*) addRandomCar {
+    
+    Car* car =
+    [NSEntityDescription insertNewObjectForEntityForName:@"Car"
+                                  inManagedObjectContext:self.managedObjectContext];
+    car.model = carModelNames[arc4random_uniform(5)];
+    
+    return car;
+}
+
+- (void) printAllObjects {
+    
+    NSArray* allObjects = [self allObjects];
+    
+    for (id object in allObjects) {
+        
+        if ([object isKindOfClass:[Car class]]) {
+            
+            Car* car = (Car*) object;
+            NSLog(@"CAR: %@, OWNER: %@ %@", car.model, car.owner.name, car.owner.age);
+            
+        } else if ([object isKindOfClass:[Student class]]) {
+            
+            Student* student = (Student*) object;
+            NSLog(@"STUDENT: %@ %@, , UNIVERSITY: %@",
+                  student.name, student.age, student.university.name);
+            
+        } else if ([object isKindOfClass:[University class]]) {
+            
+            University* university = (University*) object;
+            NSLog(@"UNIVERSITY: %@ Students: %lu", university.name, [university.students count]);
+        }
+        
+        //NSLog(@"%@", object);
+    }
+}
+
+- (void) deleteAllObjects {
+    
+    NSArray* allObjects = [self allObjects];
+    
+    for (id object in allObjects) {
+        [self.managedObjectContext deleteObject:object];
+    }
+    [self.managedObjectContext save:nil];
+}
+
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    NSError* error = nil;
+    
+    University* university = [self addUniversity];
+    
+    for (int i = 0; i < 30; i++) {
+        
+        Student* student = [self addRandomStudent];
+        
+        if (arc4random_uniform(1000) < 500) {
+            Car* car = [self addRandomCar];
+            student.car = car;
+        }
+        
+        student.university = university;
+        
+        //[university addStudentsObject:student];
+    }
+    
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    
+    //[self deleteAllObjects];
+    
+    [self printAllObjects];
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"University"
+                inManagedObjectContext:self.managedObjectContext];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.managedObjectContext executeFetchRequest:request error:&requestError];
+    
+    if ([resultArray count] > 0) {
+        
+        University* university = [resultArray firstObject];
+        
+        NSLog(@"university to delete %@", university);
+        
+        [self.managedObjectContext deleteObject:university];
+        [self.managedObjectContext save:nil];
+    }
+    
+    [self printAllObjects];
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -66,28 +209,19 @@
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it.
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
     
-    // Create the coordinator and store
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataTest.sqlite"];
     
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AGCoreDataTest.sqlite"];
     NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        // Report any error we got.
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
-        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
-        dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        // Replace this with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        
+        [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
     }
     
     return _persistentStoreCoordinator;

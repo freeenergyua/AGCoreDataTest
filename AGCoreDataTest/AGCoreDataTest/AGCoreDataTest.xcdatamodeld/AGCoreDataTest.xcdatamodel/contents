@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9053" systemVersion="14F27" minimumToolsVersion="Automatic">
-    <entity name="AGObject" syncable="YES"/>
-    <entity name="Car" parentEntity="AGObject" syncable="YES">
+    <entity name="AGObject" representedClassName="AGObject" syncable="YES"/>
+    <entity name="Car" representedClassName="Car" parentEntity="AGObject" syncable="YES">
         <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Student" inverseName="car" inverseEntity="Student" syncable="YES"/>
     </entity>
-    <entity name="Courses" parentEntity="AGObject" syncable="YES">
+    <entity name="Courses" representedClassName="Courses" parentEntity="AGObject" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="courses" inverseEntity="Student" syncable="YES"/>
         <relationship name="university" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="University" inverseName="courses" inverseEntity="University" syncable="YES"/>
     </entity>
-    <entity name="Student" parentEntity="AGObject" syncable="YES">
+    <entity name="Student" representedClassName="Student" parentEntity="AGObject" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -18,7 +18,7 @@
         <relationship name="courses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Courses" inverseName="students" inverseEntity="Courses" syncable="YES"/>
         <relationship name="university" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="University" inverseName="students" inverseEntity="University" syncable="YES"/>
     </entity>
-    <entity name="University" parentEntity="AGObject" syncable="YES">
+    <entity name="University" representedClassName="University" parentEntity="AGObject" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="courses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Courses" inverseName="university" inverseEntity="Courses" syncable="YES"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Student" inverseName="university" inverseEntity="Student" syncable="YES"/>
@@ -28,6 +28,6 @@
         <element name="University" positionX="-146" positionY="234" width="128" height="88"/>
         <element name="Car" positionX="214" positionY="0" width="128" height="73"/>
         <element name="Courses" positionX="-281" positionY="56" width="128" height="88"/>
-        <element name="AGObject" positionX="-9" positionY="-54" width="128" height="45"/>
+        <element name="AGObject" positionX="-9" positionY="-54" width="128" height="43"/>
     </elements>
 </model>

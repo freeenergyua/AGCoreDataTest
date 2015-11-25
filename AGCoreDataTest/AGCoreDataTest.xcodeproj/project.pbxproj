@@ -16,6 +16,18 @@
 		C0A584761C0616CA004650C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A584741C0616CA004650C4 /* LaunchScreen.storyboard */; };
 		C0A584811C0616CA004650C4 /* AGCoreDataTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584801C0616CA004650C4 /* AGCoreDataTestTests.m */; };
 		C0A5848C1C0616CA004650C4 /* AGCoreDataTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5848B1C0616CA004650C4 /* AGCoreDataTestUITests.m */; };
+		C0A584AE1C061E96004650C4 /* University+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5849B1C061E96004650C4 /* University+CoreDataProperties.m */; };
+		C0A584AF1C061E96004650C4 /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5849D1C061E96004650C4 /* University.m */; };
+		C0A584B01C061E96004650C4 /* Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5849F1C061E96004650C4 /* Student+CoreDataProperties.m */; };
+		C0A584B11C061E96004650C4 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584A11C061E96004650C4 /* Student.m */; };
+		C0A584B21C061E96004650C4 /* Courses+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584A31C061E96004650C4 /* Courses+CoreDataProperties.m */; };
+		C0A584B31C061E96004650C4 /* Courses.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584A51C061E96004650C4 /* Courses.m */; };
+		C0A584B41C061E96004650C4 /* AGObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584A71C061E96004650C4 /* AGObject+CoreDataProperties.m */; };
+		C0A584B51C061E96004650C4 /* AGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584A91C061E96004650C4 /* AGObject.m */; };
+		C0A584B61C061E96004650C4 /* Car+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584AB1C061E96004650C4 /* Car+CoreDataProperties.m */; };
+		C0A584B71C061E96004650C4 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A584AD1C061E96004650C4 /* Car.m */; };
+		C0A584BB1C062335004650C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A584BA1C062335004650C4 /* CoreData.framework */; };
+		C0A584BD1C06233C004650C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A584BC1C06233C004650C4 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +65,28 @@
 		C0A584871C0616CA004650C4 /* AGCoreDataTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGCoreDataTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A5848B1C0616CA004650C4 /* AGCoreDataTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGCoreDataTestUITests.m; sourceTree = "<group>"; };
 		C0A5848D1C0616CA004650C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0A5849A1C061E96004650C4 /* University+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "University+CoreDataProperties.h"; path = "../University+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C0A5849B1C061E96004650C4 /* University+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "University+CoreDataProperties.m"; path = "../University+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C0A5849C1C061E96004650C4 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = University.h; path = ../University.h; sourceTree = "<group>"; };
+		C0A5849D1C061E96004650C4 /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = University.m; path = ../University.m; sourceTree = "<group>"; };
+		C0A5849E1C061E96004650C4 /* Student+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Student+CoreDataProperties.h"; path = "../Student+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C0A5849F1C061E96004650C4 /* Student+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Student+CoreDataProperties.m"; path = "../Student+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C0A584A01C061E96004650C4 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Student.h; path = ../Student.h; sourceTree = "<group>"; };
+		C0A584A11C061E96004650C4 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Student.m; path = ../Student.m; sourceTree = "<group>"; };
+		C0A584A21C061E96004650C4 /* Courses+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Courses+CoreDataProperties.h"; path = "../Courses+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C0A584A31C061E96004650C4 /* Courses+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Courses+CoreDataProperties.m"; path = "../Courses+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C0A584A41C061E96004650C4 /* Courses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Courses.h; path = ../Courses.h; sourceTree = "<group>"; };
+		C0A584A51C061E96004650C4 /* Courses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Courses.m; path = ../Courses.m; sourceTree = "<group>"; };
+		C0A584A61C061E96004650C4 /* AGObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AGObject+CoreDataProperties.h"; path = "../AGObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C0A584A71C061E96004650C4 /* AGObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AGObject+CoreDataProperties.m"; path = "../AGObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C0A584A81C061E96004650C4 /* AGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGObject.h; path = ../AGObject.h; sourceTree = "<group>"; };
+		C0A584A91C061E96004650C4 /* AGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGObject.m; path = ../AGObject.m; sourceTree = "<group>"; };
+		C0A584AA1C061E96004650C4 /* Car+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Car+CoreDataProperties.h"; path = "../Car+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C0A584AB1C061E96004650C4 /* Car+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Car+CoreDataProperties.m"; path = "../Car+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C0A584AC1C061E96004650C4 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Car.h; path = ../Car.h; sourceTree = "<group>"; };
+		C0A584AD1C061E96004650C4 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Car.m; path = ../Car.m; sourceTree = "<group>"; };
+		C0A584BA1C062335004650C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C0A584BC1C06233C004650C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A584BD1C06233C004650C4 /* Foundation.framework in Frameworks */,
+				C0A584BB1C062335004650C4 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +119,8 @@
 		C0A584571C0616CA004650C4 = {
 			isa = PBXGroup;
 			children = (
+				C0A584BC1C06233C004650C4 /* Foundation.framework */,
+				C0A584BA1C062335004650C4 /* CoreData.framework */,
 				C0A584621C0616CA004650C4 /* AGCoreDataTest */,
 				C0A5847F1C0616CA004650C4 /* AGCoreDataTestTests */,
 				C0A5848A1C0616CA004650C4 /* AGCoreDataTestUITests */,
@@ -103,6 +141,7 @@
 		C0A584621C0616CA004650C4 /* AGCoreDataTest */ = {
 			isa = PBXGroup;
 			children = (
+				C0A584991C061E63004650C4 /* Models */,
 				C0A584661C0616CA004650C4 /* AppDelegate.h */,
 				C0A584671C0616CA004650C4 /* AppDelegate.m */,
 				C0A584691C0616CA004650C4 /* ViewController.h */,
@@ -141,6 +180,33 @@
 				C0A5848D1C0616CA004650C4 /* Info.plist */,
 			);
 			path = AGCoreDataTestUITests;
+			sourceTree = "<group>";
+		};
+		C0A584991C061E63004650C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C0A5849A1C061E96004650C4 /* University+CoreDataProperties.h */,
+				C0A5849B1C061E96004650C4 /* University+CoreDataProperties.m */,
+				C0A5849C1C061E96004650C4 /* University.h */,
+				C0A5849D1C061E96004650C4 /* University.m */,
+				C0A5849E1C061E96004650C4 /* Student+CoreDataProperties.h */,
+				C0A5849F1C061E96004650C4 /* Student+CoreDataProperties.m */,
+				C0A584A01C061E96004650C4 /* Student.h */,
+				C0A584A11C061E96004650C4 /* Student.m */,
+				C0A584A21C061E96004650C4 /* Courses+CoreDataProperties.h */,
+				C0A584A31C061E96004650C4 /* Courses+CoreDataProperties.m */,
+				C0A584A41C061E96004650C4 /* Courses.h */,
+				C0A584A51C061E96004650C4 /* Courses.m */,
+				C0A584A61C061E96004650C4 /* AGObject+CoreDataProperties.h */,
+				C0A584A71C061E96004650C4 /* AGObject+CoreDataProperties.m */,
+				C0A584A81C061E96004650C4 /* AGObject.h */,
+				C0A584A91C061E96004650C4 /* AGObject.m */,
+				C0A584AA1C061E96004650C4 /* Car+CoreDataProperties.h */,
+				C0A584AB1C061E96004650C4 /* Car+CoreDataProperties.m */,
+				C0A584AC1C061E96004650C4 /* Car.h */,
+				C0A584AD1C061E96004650C4 /* Car.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,9 +339,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A584B21C061E96004650C4 /* Courses+CoreDataProperties.m in Sources */,
+				C0A584AE1C061E96004650C4 /* University+CoreDataProperties.m in Sources */,
+				C0A584B41C061E96004650C4 /* AGObject+CoreDataProperties.m in Sources */,
+				C0A584B31C061E96004650C4 /* Courses.m in Sources */,
+				C0A584B71C061E96004650C4 /* Car.m in Sources */,
+				C0A584B51C061E96004650C4 /* AGObject.m in Sources */,
+				C0A584AF1C061E96004650C4 /* University.m in Sources */,
 				C0A5846B1C0616CA004650C4 /* ViewController.m in Sources */,
+				C0A584B61C061E96004650C4 /* Car+CoreDataProperties.m in Sources */,
+				C0A584B11C061E96004650C4 /* Student.m in Sources */,
 				C0A584681C0616CA004650C4 /* AppDelegate.m in Sources */,
 				C0A584711C0616CA004650C4 /* AGCoreDataTest.xcdatamodeld in Sources */,
+				C0A584B01C061E96004650C4 /* Student+CoreDataProperties.m in Sources */,
 				C0A584651C0616CA004650C4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
