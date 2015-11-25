@@ -45,7 +45,7 @@ static NSString* carModelNames[] = {
     
     student.score = @((float)arc4random_uniform(201) / 200.f + 2.f);
     student.name = firstNames[arc4random_uniform(50)];
-    student.age = @((float)arc4random_uniform(5)/5.f + 18.f);
+    student.age = @((float)arc4random_uniform(25)/5.f + 18.f);
     
     return student;
 }
@@ -102,8 +102,8 @@ static NSString* carModelNames[] = {
         } else if ([object isKindOfClass:[Student class]]) {
             
             Student* student = (Student*) object;
-            NSLog(@"STUDENT: %@ %@, , UNIVERSITY: %@",
-                  student.name, student.age, student.university.name);
+            NSLog(@"STUDENT: %@ %@, CAR %@ and  UNIVERSITY: %@",
+                  student.name, student.age,student.car, student.university.name);
             
         } else if ([object isKindOfClass:[University class]]) {
             
@@ -144,16 +144,17 @@ static NSString* carModelNames[] = {
         
         student.university = university;
         
-        //[university addStudentsObject:student];
+       // [university addStudentsObject:student];
     }
     
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"%@", [error localizedDescription]);
     }
     
-    //[self deleteAllObjects];
-    
     [self printAllObjects];
+    
+    
+    /* теперь удаляем университет который привязан к студентам каскадным delete rule и как результат сносит всех студентов а также собственникаов автомобилей но оставляет сами авто, так как у них delete rule = nullify */
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     
@@ -177,6 +178,12 @@ static NSString* carModelNames[] = {
     }
     
     [self printAllObjects];
+    
+    [self deleteAllObjects];
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+//   очистка данных после отображения    ~~~~~~~~ D_E_L_E_T_E ~~~~~
     return YES;
 }
 
