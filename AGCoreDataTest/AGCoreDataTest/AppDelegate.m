@@ -43,7 +43,7 @@ static NSString* carModelNames[] = {
     [NSEntityDescription insertNewObjectForEntityForName:@"Student"
                                   inManagedObjectContext:self.managedObjectContext];
     
-    student.score = @((float)arc4random_uniform(201) / 200.f + 2.f);
+    student.score = @((float)arc4random_uniform(201) / 100.f + 2.f);
     student.name = firstNames[arc4random_uniform(50)];
     student.age = @((float)arc4random_uniform(25)/5.f + 18.f);
     
@@ -58,6 +58,16 @@ static NSString* carModelNames[] = {
     university.name = @"KNTEU";
     
     return university;
+}
+
+- (Courses*) addCourseWithName:(NSString*) name {
+    
+    Courses* course =
+    [NSEntityDescription insertNewObjectForEntityForName:@"Courses"
+                                  inManagedObjectContext:self.managedObjectContext];
+    course.name = name;
+    
+    return course;
 }
 
 - (NSArray*) allObjects {
@@ -88,11 +98,9 @@ static NSString* carModelNames[] = {
     return car;
 }
 
-- (void) printAllObjects {
+- (void) printArray:(NSArray*) array {
     
-    NSArray* allObjects = [self allObjects];
-    
-    for (id object in allObjects) {
+    for (id object in array) {
         
         if ([object isKindOfClass:[Car class]]) {
             
@@ -102,17 +110,30 @@ static NSString* carModelNames[] = {
         } else if ([object isKindOfClass:[Student class]]) {
             
             Student* student = (Student*) object;
-            NSLog(@"STUDENT: %@ %@, CAR %@ and  UNIVERSITY: %@",
-                  student.name, student.age,student.car, student.university.name);
+            NSLog(@"STUDENT: %@ %@, SCORE: %1.2f  COURSES: %d",
+                  student.name, student.age, [student.score floatValue], [student.courses count]);
             
         } else if ([object isKindOfClass:[University class]]) {
             
             University* university = (University*) object;
-            NSLog(@"UNIVERSITY: %@ Students: %lu", university.name, [university.students count]);
-        }
+            NSLog(@"UNIVERSITY: %@ Students: %u", university.name, [university.students count]);
+            
+        } else if ([object isKindOfClass:[Courses class]]) {
+            
+            Courses* course = (Courses*) object;
+            NSLog(@"Course name: %@ Student count: %u", course.name, [course.students count]);
         
-        //NSLog(@"%@", object);
+        }
     }
+    NSLog(@"Array count %lu",(unsigned long)[array count]);
+}
+
+- (void) printAllObjects {
+    
+    NSArray* allObjects = [self allObjects];
+    
+    [self printArray:allObjects];
+   
 }
 
 - (void) deleteAllObjects {
@@ -128,10 +149,19 @@ static NSString* carModelNames[] = {
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+/*
     NSError* error = nil;
+    [self deleteAllObjects];
+
+    NSArray* courses = @[[self addCourseWithName:@"IOS"],
+                         [self addCourseWithName:@"SWIFT"],
+                         [self addCourseWithName:@"OBJECTIVE"],
+                         [self addCourseWithName:@"CORE DATA"],
+                         [self addCourseWithName:@"SQL"]];
     
     University* university = [self addUniversity];
+    
+    [university addCourses:[NSSet setWithArray:courses]];
     
     for (int i = 0; i < 30; i++) {
         
@@ -144,49 +174,97 @@ static NSString* carModelNames[] = {
         
         student.university = university;
         
-       // [university addStudentsObject:student];
+        // cоздаю курсы
+        
+        NSInteger number = arc4random_uniform(5) + 1;
+        while ([student.courses count] < number) {
+            Courses* course = [courses objectAtIndex:arc4random_uniform(5)];
+            
+            if (![student.courses containsObject:course]) {
+                [student addCoursesObject:course];
+            }
+        };
+        
     }
     
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"%@", [error localizedDescription]);
     }
+   */
+//    NSFetchRequest* request = [[NSFetchRequest alloc] init];
     
-    [self printAllObjects];
+//    NSEntityDescription* description =
+//    [NSEntityDescription entityForName:@"Student"
+//                inManagedObjectContext:self.managedObjectContext];
+//    
+//    NSSortDescriptor* nameDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+//    NSSortDescriptor* ageDescriptor = [[NSSortDescriptor alloc]initWithKey:@"age" ascending:YES];
+////
+//    NSEntityDescription* description = [NSEntityDescription entityForName:@"Courses"
+//                                                   inManagedObjectContext:self.managedObjectContext];
+//    
+//    NSSortDescriptor* nameDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+//
+//    [request setEntity:description];
+//    [request setSortDescriptors:@[nameDescriptor]];
+//    
+///*   NSPredicate* predicate = [NSPredicate predicateWithFormat:@"score > %f AND score <= %f",3.0,3.5];*/
+//    NSPredicate* predicate =
+//    [NSPredicate predicateWithFormat:@"SUBQUERY(students, $student, $student.car.model == %@).@count >= %d", @"BMW", 2];
+//    
+//    [request setPredicate:predicate];
+//
+//тестировал разное
+//    [request setRelationshipKeyPathsForPrefetching:@[@"Courses"]];//для быстрого обращения
+//    [request setFetchBatchSize:10];
+//    [request setFetchLimit:30];
+//    [request setFetchOffset:20];
     
-    
-    /* теперь удаляем университет который привязан к студентам каскадным delete rule и как результат сносит всех студентов а также собственникаов автомобилей но оставляет сами авто, так как у них delete rule = nullify */
-    
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription* description =
-    [NSEntityDescription entityForName:@"University"
-                inManagedObjectContext:self.managedObjectContext];
-    
-    [request setEntity:description];
+    NSFetchRequest* request = [self.managedObjectModel fetchRequestTemplateForName:@"ScoreRequest"];
     
     NSError* requestError = nil;
     NSArray* resultArray = [self.managedObjectContext executeFetchRequest:request error:&requestError];
+
+//    resultArray = [resultArray subarrayWithRange:NSMakeRange(0,10)];
     
-    if ([resultArray count] > 0) {
-        
-        University* university = [resultArray firstObject];
-        
-        NSLog(@"university to delete %@", university);
-        
-        [self.managedObjectContext deleteObject:university];
-        [self.managedObjectContext save:nil];
-    }
-    
-    [self printAllObjects];
-    
-    [self deleteAllObjects];
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-//   очистка данных после отображения    ~~~~~~~~ D_E_L_E_T_E ~~~~~
+    [self printArray:resultArray];
+
     return YES;
 }
 
+- (void) deleteUniversity:(id)sender {
+    /* теперь удаляем университет который привязан к студентам каскадным delete rule и как результат сносит всех студентов а также собственникаов автомобилей но оставляет сами авто, так как у них delete rule = nullify */
+    
+     NSFetchRequest* request = [[NSFetchRequest alloc] init];
+     
+     NSEntityDescription* description =
+     [NSEntityDescription entityForName:@"University"
+     inManagedObjectContext:self.managedObjectContext];
+     
+     [request setEntity:description];
+     
+     NSError* requestError = nil;
+     NSArray* resultArray = [self.managedObjectContext executeFetchRequest:request error:&requestError];
+     
+     if ([resultArray count] > 0) {
+     
+     University* university = [resultArray firstObject];
+     
+     NSLog(@"university to delete %@", university);
+     
+     [self.managedObjectContext deleteObject:university];
+     [self.managedObjectContext save:nil];
+     }
+     
+     [self printAllObjects];
+     [self deleteAllObjects];
+    
+    NSError* error = nil;
+     if (![self.managedObjectContext save:&error]) {
+     NSLog(@"%@", [error localizedDescription]);
+     }
+     
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
